@@ -10,7 +10,7 @@ import UIKit
 
 class ToDoListTableViewController: UITableViewController {
     
-    let itemList = ["1", "2", "3"]
+    var itemList = ["1", "2", "3"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,32 @@ class ToDoListTableViewController: UITableViewController {
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
+    // MARK: - Add new item section
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add new task", message: .none, preferredStyle: .alert)
+        let addAction = UIAlertAction(title: "Add", style: .default) { action in
+            if let newTask = textField.text {
+                self.itemList.append(newTask)
+                self.tableView.reloadData()
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alert.addTextField { addTextField in
+            addTextField.placeholder = "enter new task here"
+            textField = addTextField
+        }
+        
+        alert.addAction(addAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
