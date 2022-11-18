@@ -16,11 +16,7 @@ class ToDoListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        itemList.append(Item(title: "1"))
-        itemList.append(Item(title: "2"))
-        itemList.append(Item(title: "3"))
-        
-
+        loadItems()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -90,6 +86,8 @@ class ToDoListTableViewController: UITableViewController {
         present(alert, animated: true)
     }
     
+    //MARK: - Model manipulation methods
+    
     fileprivate func saveItems() {
         let encoder = PropertyListEncoder()
         do {
@@ -97,7 +95,17 @@ class ToDoListTableViewController: UITableViewController {
             try data.write(to: dataFilePath!)
             
         } catch {
-            print("the error accured: \(error)")
+            print("accured while encoding: \(error.localizedDescription)")
+        }
+    }
+    
+    fileprivate func loadItems() {
+        let decoder = PropertyListDecoder()
+        do {
+            let plistData = try Data(contentsOf: dataFilePath!)
+            itemList = try decoder.decode([Item].self, from: plistData)
+        } catch {
+            print("accured while decoding: \(error.localizedDescription)")
         }
     }
     
