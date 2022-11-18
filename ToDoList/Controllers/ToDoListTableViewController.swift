@@ -11,7 +11,7 @@ import UIKit
 class ToDoListTableViewController: UITableViewController {
     
     var itemList = [Item]()
-    let defaults = UserDefaults.standard
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Items.plist")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +20,6 @@ class ToDoListTableViewController: UITableViewController {
         itemList.append(Item(title: "2"))
         itemList.append(Item(title: "3"))
         
-        if let savedTodoList = defaults.array(forKey: "ToDoListArray") as? [Item] {
-            itemList = savedTodoList
-        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -60,11 +57,12 @@ class ToDoListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         itemList[indexPath.row].done = !itemList[indexPath.row].done
+        saveItems()
         tableView.reloadData()
     }
     
     // MARK: - Add new item section
-    
+        
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
         
@@ -73,7 +71,9 @@ class ToDoListTableViewController: UITableViewController {
             if let newTask = textField.text {
                 let newItem = Item(title: newTask)
                 self.itemList.append(newItem)
-                self.defaults.set(self.itemList, forKey: "ToDoListArray")
+                
+                self.saveItems()
+                
                 self.tableView.reloadData()
             }
         }
@@ -88,6 +88,17 @@ class ToDoListTableViewController: UITableViewController {
         alert.addAction(cancelAction)
         
         present(alert, animated: true)
+    }
+    
+    fileprivate func saveItems() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(itemList)
+            try data.write(to: dataFilePath!)
+            
+        } catch {
+            print("the error accured: \(error)")
+        }
     }
     
     /*
