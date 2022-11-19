@@ -12,12 +12,11 @@ import CoreData
 class ToDoListTableViewController: UITableViewController {
     
     var itemList = [Item]()
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appending(path: "Items.plist"))
-        
-        //loadItems()
+        loadItems()
     }
     
     // MARK: - Table view data source
@@ -61,10 +60,8 @@ class ToDoListTableViewController: UITableViewController {
         let alert = UIAlertController(title: "Add new task", message: .none, preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Add", style: .default) { action in
             
-            let context = self.getContext()
-            guard let entity = NSEntityDescription.entity(forEntityName: "Item", in: context) else { return }
-            //guard let entity = NSEntityDescription.entity(forEntityName: newTask, in: context) else { return }
-            let newItem = Item(entity: entity, insertInto: context)
+            guard let entity = NSEntityDescription.entity(forEntityName: "Item", in: self.context) else { return }
+            let newItem = Item(entity: entity, insertInto: self.context)
             newItem.title = textField.text
             newItem.done = false
             
@@ -90,13 +87,7 @@ class ToDoListTableViewController: UITableViewController {
     
     //MARK: - Model manipulation methods
     
-    fileprivate func getContext() -> NSManagedObjectContext {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.persistentContainer.viewContext
-    }
-    
     fileprivate func saveItems() {
-        let context = getContext()
         do {
             try context.save()
         } catch {
@@ -104,13 +95,12 @@ class ToDoListTableViewController: UITableViewController {
         }
     }
     
-//    fileprivate func loadItems() {
-//        let decoder = PropertyListDecoder()
-//        do {
-//            let plistData = try Data(contentsOf: dataFilePath!)
-//            itemList = try decoder.decode([Item].self, from: plistData)
-//        } catch {
-//            print("accured while decoding: \(error.localizedDescription)")
-//        }
-//    }
+    fileprivate func loadItems() {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        do {
+            itemList = try context.fetch(request)
+        } catch {
+            print("error reading from db: \(error.localizedDescription)")
+        }
+    }
 }
