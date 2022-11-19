@@ -52,6 +52,19 @@ class ToDoListTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") {[unowned self] _,_,_ in
+            context.delete(itemList[indexPath.row])
+            itemList.remove(at: indexPath.row)
+            saveItems()
+            tableView.reloadData()
+        }
+        let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
+
+        return swipeActions
+    }
+
     // MARK: - Add new item section
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
