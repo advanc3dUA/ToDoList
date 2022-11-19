@@ -16,6 +16,7 @@
 		BF23EB632924FBAF00AB47F6 /* ToDoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23EB622924FBAF00AB47F6 /* ToDoListTableViewController.swift */; };
 		BFDD8E882928F1760049977D /* SearchBar+ToDoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDD8E872928F1760049977D /* SearchBar+ToDoListVC.swift */; };
 		BFDD8E8A2928F3090049977D /* TableView+ToDoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDD8E892928F3090049977D /* TableView+ToDoListVC.swift */; };
+		BFF091A22929074D00ED7710 /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF091A12929074D00ED7710 /* CategoryTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		BF23EB622924FBAF00AB47F6 /* ToDoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTableViewController.swift; sourceTree = "<group>"; };
 		BFDD8E872928F1760049977D /* SearchBar+ToDoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchBar+ToDoListVC.swift"; sourceTree = "<group>"; };
 		BFDD8E892928F3090049977D /* TableView+ToDoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+ToDoListVC.swift"; sourceTree = "<group>"; };
+		BFF091A12929074D00ED7710 /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CategoryTableViewController.swift; path = ToDoList/Controllers/CategoryTableViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		BF23EB642924FBB800AB47F6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BFF091A12929074D00ED7710 /* CategoryTableViewController.swift */,
 				BF23EB622924FBAF00AB47F6 /* ToDoListTableViewController.swift */,
 				BFDD8E892928F3090049977D /* TableView+ToDoListVC.swift */,
 				BFDD8E872928F1760049977D /* SearchBar+ToDoListVC.swift */,
@@ -179,6 +182,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFF091A22929074D00ED7710 /* CategoryTableViewController.swift in Sources */,
 				BF23EB4C2924FAF100AB47F6 /* AppDelegate.swift in Sources */,
 				BF23EB4E2924FAF100AB47F6 /* SceneDelegate.swift in Sources */,
 				BFDD8E8A2928F3090049977D /* TableView+ToDoListVC.swift in Sources */,
