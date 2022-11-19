@@ -64,16 +64,12 @@ class ToDoListTableViewController: UITableViewController {
         }
     }
     
-    fileprivate func loadItems() {
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
         do {
             itemList = try context.fetch(request)
         } catch {
             print("error reading from db: \(error.localizedDescription)")
         }
+        tableView.reloadData()
     }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        self.searchBar.endEditing(true)
-//    }
 }

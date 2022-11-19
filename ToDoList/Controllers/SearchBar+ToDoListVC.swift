@@ -11,20 +11,16 @@ import CoreData
 
 extension ToDoListTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchQuery = searchBar.text else { return }
+        let searchQuery: String
+        searchQuery = searchBar.text!
+        guard searchQuery != "" else { return }
+        
         let request: NSFetchRequest<Item> = Item.fetchRequest()
+
+        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchQuery)
         
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchQuery)
-        request.predicate = predicate
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
-        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
-        request.sortDescriptors = [sortDescriptor]
-        
-        do {
-            itemList = try context.fetch(request)
-            tableView.reloadData()
-        } catch {
-            print(error.localizedDescription)
-        }
+        loadItems(with: request)
     }    
 }
