@@ -14,6 +14,8 @@
 		BF23EB582924FAF200AB47F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF23EB572924FAF200AB47F6 /* Assets.xcassets */; };
 		BF23EB5B2924FAF200AB47F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF23EB592924FAF200AB47F6 /* LaunchScreen.storyboard */; };
 		BF23EB632924FBAF00AB47F6 /* ToDoListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23EB622924FBAF00AB47F6 /* ToDoListTableViewController.swift */; };
+		BFDD8E882928F1760049977D /* SearchBar+ToDoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDD8E872928F1760049977D /* SearchBar+ToDoListVC.swift */; };
+		BFDD8E8A2928F3090049977D /* TableView+ToDoListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFDD8E892928F3090049977D /* TableView+ToDoListVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		BF23EB5A2924FAF200AB47F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF23EB5C2924FAF200AB47F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF23EB622924FBAF00AB47F6 /* ToDoListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTableViewController.swift; sourceTree = "<group>"; };
+		BFDD8E872928F1760049977D /* SearchBar+ToDoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchBar+ToDoListVC.swift"; sourceTree = "<group>"; };
+		BFDD8E892928F3090049977D /* TableView+ToDoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+ToDoListVC.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				BF23EB622924FBAF00AB47F6 /* ToDoListTableViewController.swift */,
+				BFDD8E892928F3090049977D /* TableView+ToDoListVC.swift */,
+				BFDD8E872928F1760049977D /* SearchBar+ToDoListVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -175,7 +181,9 @@
 			files = (
 				BF23EB4C2924FAF100AB47F6 /* AppDelegate.swift in Sources */,
 				BF23EB4E2924FAF100AB47F6 /* SceneDelegate.swift in Sources */,
+				BFDD8E8A2928F3090049977D /* TableView+ToDoListVC.swift in Sources */,
 				BF23EB562924FAF100AB47F6 /* ToDoList.xcdatamodeld in Sources */,
+				BFDD8E882928F1760049977D /* SearchBar+ToDoListVC.swift in Sources */,
 				BF23EB632924FBAF00AB47F6 /* ToDoListTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
