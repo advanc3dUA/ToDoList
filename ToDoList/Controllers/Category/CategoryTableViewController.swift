@@ -19,14 +19,9 @@ class CategoryTableViewController: UITableViewController {
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
-        let alert = UIAlertController(title: "Add new category", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add new category", message: .none, preferredStyle: .alert)
         
-        alert.addTextField { tf in
-            tf.placeholder = "enter prefered category"
-            textField = tf
-        }
-        
-        let addAction = UIAlertAction(title: "Ok", style: .default) { action in
+        let addAction = UIAlertAction(title: "Add", style: .default) { action in
             guard textField.text != "" else { return }
             
             guard let entity = NSEntityDescription.entity(forEntityName: "Category", in: self.context) else { return }
@@ -38,6 +33,11 @@ class CategoryTableViewController: UITableViewController {
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        
+        alert.addTextField { tf in
+            tf.placeholder = "enter prefered category"
+            textField = tf
+        }
         
         alert.addAction(addAction)
         alert.addAction(cancelAction)

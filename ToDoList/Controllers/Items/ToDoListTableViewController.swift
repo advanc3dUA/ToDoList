@@ -13,14 +13,18 @@ class ToDoListTableViewController: UITableViewController {
     
     var itemList = [Item]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var selectedCategory: Category? {
+        didSet {
+            loadItems()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadItems()
     }
     
-
-
+    
+    
     // MARK: - Add new item section
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -33,12 +37,13 @@ class ToDoListTableViewController: UITableViewController {
             let newItem = Item(entity: entity, insertInto: self.context)
             newItem.title = textField.text
             newItem.done = false
+            newItem.parentCategory = self.selectedCategory
             
             self.itemList.append(newItem)
             
             self.saveItems()
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
         
         alert.addTextField { addTextField in
             addTextField.placeholder = "enter new task here"
@@ -62,7 +67,15 @@ class ToDoListTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        
+        if let customPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, customPredicate])
+        } else {
+            request.predicate = categoryPredicate
+        }
+        
         do {
             itemList = try context.fetch(request)
         } catch {
