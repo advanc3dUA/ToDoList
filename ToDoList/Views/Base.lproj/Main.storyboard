@@ -100,7 +100,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="KmM-oV-9Ld">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <action selector="addButtonPressed:" destination="TG1-KN-XoA" id="2yQ-Ng-pjC"/>
+                                <action selector="addButtonPressed:" destination="TG1-KN-XoA" id="dke-w6-0Hh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

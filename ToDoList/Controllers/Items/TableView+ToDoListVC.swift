@@ -5,10 +5,10 @@
 //  Created by Yuriy Gudimov on 19.11.2022.
 //
 
-import Foundation
 import UIKit
 
 extension ToDoListTableViewController {
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -48,10 +48,7 @@ extension ToDoListTableViewController {
             context.delete(itemList[indexPath.row])
             itemList.remove(at: indexPath.row)
             saveItems()
-            tableView.reloadData()
         }
-        let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
-
-        return swipeActions
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }

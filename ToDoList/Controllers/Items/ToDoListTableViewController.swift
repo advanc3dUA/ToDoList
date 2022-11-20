@@ -37,9 +37,6 @@ class ToDoListTableViewController: UITableViewController {
             self.itemList.append(newItem)
             
             self.saveItems()
-            
-            self.tableView.reloadData()
-            
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
@@ -62,6 +59,7 @@ class ToDoListTableViewController: UITableViewController {
         } catch {
             print("error saving to db: \(error.localizedDescription)")
         }
+        tableView.reloadData()
     }
     
     func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
