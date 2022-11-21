@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class ToDoListTableViewController: UITableViewController {
     
-    var itemList = [Item]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var itemList: Results<Item>?
+    let realm = try! Realm()
     var selectedCategory: Category? {
         didSet {
             loadItems()
@@ -33,15 +33,20 @@ class ToDoListTableViewController: UITableViewController {
         let alert = UIAlertController(title: "Add new task", message: .none, preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Add", style: .default) { action in
             
-            guard let entity = NSEntityDescription.entity(forEntityName: "Item", in: self.context) else { return }
-            let newItem = Item(entity: entity, insertInto: self.context)
-            newItem.title = textField.text
-            newItem.done = false
-            newItem.parentCategory = self.selectedCategory
+            guard textField.text != "" else { return }
             
-            self.itemList.append(newItem)
-            
-            self.saveItems()
+            if let currentCategory = self.selectedCategory {
+                do {
+                    try self.realm.write {
+                        let newItem = Item()
+                        newItem.title = textField.text!
+                        currentCategory.items.append(newItem)
+                    }
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+            self.tableView.reloadData()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
         
@@ -58,29 +63,8 @@ class ToDoListTableViewController: UITableViewController {
     
     //MARK: - Model manipulation methods
     
-    func saveItems() {
-        do {
-            try context.save()
-        } catch {
-            print("error saving to db: \(error.localizedDescription)")
-        }
-        tableView.reloadData()
-    }
-    
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
-        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
-        
-        if let customPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, customPredicate])
-        } else {
-            request.predicate = categoryPredicate
-        }
-        
-        do {
-            itemList = try context.fetch(request)
-        } catch {
-            print("error reading from db: \(error.localizedDescription)")
-        }
+    func loadItems() {
+        itemList = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
     }
 }

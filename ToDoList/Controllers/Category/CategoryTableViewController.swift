@@ -6,11 +6,12 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class CategoryTableViewController: UITableViewController {
-    var categoryList = [Category]()
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var categoryList: Results<Category>?
+    let realm = try! Realm()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,12 +25,9 @@ class CategoryTableViewController: UITableViewController {
         let addAction = UIAlertAction(title: "Add", style: .default) { action in
             guard textField.text != "" else { return }
             
-            guard let entity = NSEntityDescription.entity(forEntityName: "Category", in: self.context) else { return }
-            
-            let newCategory = Category(entity: entity, insertInto: self.context)
-            newCategory.name = textField.text
-            self.categoryList.append(newCategory)
-            self.saveCategories()
+            let newCategory = Category()
+            newCategory.name = textField.text!
+            self.save(category: newCategory)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
@@ -45,9 +43,11 @@ class CategoryTableViewController: UITableViewController {
         present(alert, animated: true)
     }
     
-    func saveCategories() {
+    func save(category: Category) {
         do {
-            try context.save()
+            try realm.write {
+                realm.add(category)
+            }
         } catch {
             print(error.localizedDescription)
         }
@@ -55,11 +55,6 @@ class CategoryTableViewController: UITableViewController {
     }
     
     func loadCategories() {
-        let request: NSFetchRequest<Category> = Category.fetchRequest()
-        do {
-            categoryList = try context.fetch(request)
-        } catch {
-            print(error.localizedDescription)
-        }
+        categoryList = realm.objects(Category.self).sorted(byKeyPath: "name", ascending: true)
     }
 }
