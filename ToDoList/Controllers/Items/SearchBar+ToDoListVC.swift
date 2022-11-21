@@ -11,13 +11,7 @@ import CoreData
 
 extension ToDoListTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        let searchQuery: String
-        searchQuery = searchBar.text!
-        guard searchQuery != "" else { return }
-
-        toDoItems = toDoItems?.filter("title CONTAINS[cd] %@", searchQuery).sorted(byKeyPath: "dateCreated", ascending: true)
-        
-        tableView.reloadData()
+       searchAndSortItems(for: searchBar)
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -26,6 +20,18 @@ extension ToDoListTableViewController: UISearchBarDelegate {
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
+        } else {
+            searchAndSortItems(for: searchBar)
         }
+    }
+    
+    fileprivate func searchAndSortItems(for searchBar: UISearchBar) {
+        let searchQuery: String
+        searchQuery = searchBar.text!
+        guard searchQuery != "" else { return }
+
+        toDoItems = toDoItems?.filter("title CONTAINS[cd] %@", searchQuery).sorted(byKeyPath: "dateCreated", ascending: true)
+        
+        tableView.reloadData()
     }
 }
