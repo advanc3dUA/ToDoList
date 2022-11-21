@@ -11,7 +11,7 @@ import RealmSwift
 
 class ToDoListTableViewController: UITableViewController {
     
-    var itemList: Results<Item>?
+    var toDoItems: Results<Item>?
     let realm = try! Realm()
     var selectedCategory: Category? {
         didSet {
@@ -39,6 +39,7 @@ class ToDoListTableViewController: UITableViewController {
                 do {
                     try self.realm.write {
                         let newItem = Item()
+                        newItem.dateCreated = Date()
                         newItem.title = textField.text!
                         currentCategory.items.append(newItem)
                     }
@@ -64,7 +65,7 @@ class ToDoListTableViewController: UITableViewController {
     //MARK: - Model manipulation methods
     
     func loadItems() {
-        itemList = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
+        toDoItems = selectedCategory?.items.sorted(byKeyPath: "title", ascending: true)
         tableView.reloadData()
     }
 }
