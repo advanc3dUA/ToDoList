@@ -42,6 +42,7 @@ extension CategoryTableViewController {
                 }
             }
         }
+        deleteAction.image = UIImage(systemName: "trash.fill")
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
     

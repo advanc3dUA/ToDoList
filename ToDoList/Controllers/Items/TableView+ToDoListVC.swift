@@ -59,8 +59,9 @@ extension ToDoListTableViewController {
                     print("error deleting item, \(error.localizedDescription)")
                 }
             }
-            
         }
+        
+        deleteAction.image = UIImage(systemName: "trash.fill")
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
