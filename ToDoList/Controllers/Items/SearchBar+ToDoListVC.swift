@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import CoreData
 
 extension ToDoListTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
