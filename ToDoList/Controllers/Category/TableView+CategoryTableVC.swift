@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 extension CategoryTableViewController {
     
@@ -24,6 +25,7 @@ extension CategoryTableViewController {
     
         var content = cell.defaultContentConfiguration()
         content.text = categoryList?[indexPath.row].name ?? "No categories added yet"
+        cell.backgroundColor = UIColor.init(hexString: categoryList?[indexPath.row].bgColor ?? "ffffff")
         cell.contentConfiguration = content
      
         return cell

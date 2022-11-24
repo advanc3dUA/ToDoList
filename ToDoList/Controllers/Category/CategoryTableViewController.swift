@@ -7,6 +7,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class CategoryTableViewController: UITableViewController {
     var categoryList: Results<Category>?
@@ -28,6 +29,7 @@ class CategoryTableViewController: UITableViewController {
             
             let newCategory = Category()
             newCategory.name = textField.text!
+            newCategory.bgColor = UIColor.randomFlat().hexValue()
             self.save(category: newCategory)
         }
         
