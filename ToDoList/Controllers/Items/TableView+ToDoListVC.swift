@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ChameleonFramework
 
 extension ToDoListTableViewController {
     
@@ -23,6 +24,11 @@ extension ToDoListTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         if let item = toDoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
+            
+            if let color = UIColor(hexString: selectedCategory!.bgColor)?.darken(byPercentage: CGFloat(CGFloat(indexPath.row) / CGFloat(toDoItems!.count))) {
+                cell.backgroundColor = color
+                cell.textLabel?.textColor = ContrastColorOf(color, returnFlat: true)
+            }
             
             cell.accessoryType = item.done ? .checkmark : .none
         } else {
