@@ -8,9 +8,11 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class ToDoListTableViewController: UITableViewController {
     
+    @IBOutlet weak var searchBar: UISearchBar!
     var toDoItems: Results<Item>?
     let realm = try! Realm()
     var selectedCategory: Category? {
@@ -21,6 +23,23 @@ class ToDoListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let colorHex = selectedCategory?.bgColor {
+            title = selectedCategory!.name
+            
+            guard let navBar = navigationController?.navigationBar else { fatalError("Navigation Controller doesn't exist") }
+            
+            if let navBarColour = UIColor(hexString: colorHex) {
+                navBar.backgroundColor = navBarColour
+                //navBar.barTintColor = navBarColour
+                navBar.tintColor = ContrastColorOf(navBarColour, returnFlat: true)
+                navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ContrastColorOf(navBarColour, returnFlat: true)]
+                searchBar.barTintColor = navBarColour
+            }
+        }
     }
     
     

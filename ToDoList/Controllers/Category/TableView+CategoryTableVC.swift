@@ -23,10 +23,16 @@ extension CategoryTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
     
-        var content = cell.defaultContentConfiguration()
-        content.text = categoryList?[indexPath.row].name ?? "No categories added yet"
-        cell.backgroundColor = UIColor.init(hexString: categoryList?[indexPath.row].bgColor ?? "ffffff")
-        cell.contentConfiguration = content
+        if let category = categoryList?[indexPath.row] {
+            var content = cell.defaultContentConfiguration()
+            content.text = category.name
+            
+            guard let categoryColour = UIColor(hexString: category.bgColor) else { fatalError() }
+            cell.backgroundColor = categoryColour
+            cell.textLabel?.textColor = ContrastColorOf(categoryColour, returnFlat: true)
+            cell.contentConfiguration = content
+        }
+        
      
         return cell
      }

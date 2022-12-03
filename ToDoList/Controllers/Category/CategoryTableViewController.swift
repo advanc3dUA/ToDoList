@@ -20,6 +20,13 @@ class CategoryTableViewController: UITableViewController {
         loadCategories()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        guard let navBar = navigationController?.navigationBar else { fatalError("Navigation controller doesn't exist")}
+        navBar.backgroundColor = UIColor(hexString: "1D9BF6")
+        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        tableView.reloadData()
+    }
+    
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
         let alert = UIAlertController(title: "Add new category", message: .none, preferredStyle: .alert)
