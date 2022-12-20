@@ -21,8 +21,8 @@ This app is a part of "iOS & Swift - The Complete iOS App Development Bootcamp" 
 ## Preview
 
 <p align="center">
-      <img src="https://github.com/advanc3dUA/ToDoList/blob/main/preview-1.gif" alt= "project Logo" width="250">
-      <img src="https://github.com/advanc3dUA/ToDoList/blob/main/preview-2.gif" alt= "project Logo" width="250">
+      <img src="https://github.com/advanc3dUA/ToDoList/raw/main/ReadmeHelper/preview-1.gif" alt= "project Logo" width="250">
+      <img src="https://github.com/advanc3dUA/ToDoList/raw/main/ReadmeHelper/preview-2.gif" alt= "project Logo" width="250">
 </p>
 
 
